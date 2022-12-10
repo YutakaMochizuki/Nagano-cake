@@ -1,0 +1,10 @@
+<%= render 'public/public_header' %>
+<h1>商品一覧</h1>
+<h4>（全x件）</h4>
+<% @items.each do |item| %>
+  <%= link_to image_tag item.get_image %>
+  <h4>商品名</h4>
+  <h4>¥0,000</h4>
+<% end %>
+
+<%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>

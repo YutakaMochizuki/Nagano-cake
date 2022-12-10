@@ -1,0 +1,27 @@
+<header>
+  <div>
+    <div>
+      <h1><%= link_to "LOGO", "/"%></h1>
+    </div>
+    <% if admin_signed_in? %>
+      <div>
+        <ul>
+          <li><%= link_to "商品一覧" %></li>
+          <li><%= link_to "会員一覧" %></li>
+          <li><%= link_to "注文履歴一覧" %></li>
+          <li><%= link_to "ジャンル一覧", admin_genres_path %></li>
+          <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    <% else %>
+      <div>
+        <ul>
+          <li><%= link_to "About", "/homes/about" %></li>
+          <li><%= link_to "商品一覧", "/public/items" %></li>
+          <li><%= link_to "新規登録", new_customer_registration_path %></li>
+          <li><%= link_to "ログイン", customer_session_path %></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</header>
