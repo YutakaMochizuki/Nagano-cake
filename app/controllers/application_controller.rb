@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(Admin)
-      admins_order_information_path
+      admin_items_path
     else
       public_items_path
     end

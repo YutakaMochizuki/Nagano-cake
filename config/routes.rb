@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :public do
     resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdrawal]
     resources :order_informations, only: [:new, :show, :index, :create, :confirm]
@@ -8,8 +9,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :order_details, only: [:show, :update]
+    resources :order_details, only: [:show, :update, :index]
     resources :genres, only: [:index, :new, :create, :show, :edit, :update]
+    resources :customers, only: [:show, :edit, :update, :index]
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
   end
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
