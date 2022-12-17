@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :public do
-    resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdrawal]
+    resources :customers, only: [:show, :edit, :update]
+    get '/customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+    patch '/customers/:id/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
     resources :order_informations, only: [:new, :show, :index, :create, :confirm]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
@@ -29,5 +31,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
 
   get 'homes/about' => 'homes#about', as: "about"
+
+
 
 end

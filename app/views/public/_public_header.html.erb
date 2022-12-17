@@ -1,26 +1,28 @@
-<header>
-  <div>
-    <div>
-      <h1><%= link_to "LOGO", "/"%></h1>
+<header class="white border border-bottom-dark" style="height: 100px;">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <div>
+        <h1><%= link_to "LOGO", "/", class: "btn btn-lg btn-outline-dark"%></h1>
+      </div>
+      <% if customer_signed_in? %>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-3"><%= link_to "マイページ", "/public/customers/#{current_customer.id}", class: "btn btn-sm btn-outline-dark" %></li>
+            <li class="nav-item mr-3"><%= link_to "商品一覧", "/public/items", class: "btn btn-sm btn-outline-dark" %></li>
+            <li class="nav-item mr-3"><%= link_to "カート", public_cart_items_path, class: "btn btn-sm btn-outline-dark" %></li>
+            <li class="nav-item mr-3"><%= link_to "ログアウト", destroy_customer_session_path, class: "btn btn-sm btn-outline-dark", method: :delete %></li>
+          </ul>
+        </div>
+      <% else %>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-3"><%= link_to "About", "/homes/about", class: "btn btn-sm btn-outline-dark" %></li>
+            <li class="nav-item mr-3"><%= link_to "商品一覧", "/public/items", class: "btn btn-sm btn-outline-dark" %></li>
+            <li class="nav-item mr-3"><%= link_to "新規登録", new_customer_registration_path, class: "btn btn-sm btn-outline-dark" %></li>
+            <li class="nav-item mr-3"><%= link_to "ログイン", customer_session_path, class: "btn btn-sm btn-outline-dark" %></li>
+          </ul>
+        </div>
+      <% end %>
     </div>
-    <% if customer_signed_in? %>
-      <div>
-        <ul>
-          <li><%= link_to "マイページ", "/public/customers/#{current_customer.id}" %></li>
-          <li><%= link_to "商品一覧", "/public/items" %></li>
-          <li><%= link_to "カート", public_cart_items_path %></li>
-          <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete %></li>
-        </ul>
-      </div>
-    <% else %>
-      <div>
-        <ul>
-          <li><%= link_to "About", "/homes/about" %></li>
-          <li><%= link_to "商品一覧", "/public/items" %></li>
-          <li><%= link_to "新規登録", new_customer_registration_path %></li>
-          <li><%= link_to "ログイン", customer_session_path %></li>
-        </ul>
-      </div>
-    <% end %>
-  </div>
+  </nav>
 </header>

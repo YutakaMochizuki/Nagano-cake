@@ -6,16 +6,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if request.fullpath.include? "admin"  %>
-      <%= render 'admin/admin_header' %>
-    <% else %>
-      <%= render 'admin/admin_header' %>
-    <% end %>
+      <div>
+      <% if request.fullpath.include? "admin" %>
+        <%= render 'admin/admin_header' %>
+      <% else %>
+        <%= render 'public/public_header' %>
+      <% end %>
+      </div>
     <main>
       <%= yield %>
     </main>
