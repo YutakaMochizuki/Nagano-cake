@@ -1,10 +1,69 @@
 class Public::OrderInformationsController < ApplicationController
   def new
+    @order_information = OrderInformation.new
+    @addresses = Address.all
+    @current_customer = current_customer
+  end
+
+  def create
+    @order_information = OrderInformation.new(order_information_params)
+    @cart_items = CartItem.all
+    @order_information.customer_id = current_customer.id
+    @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
+    @order_information.postage = 800
+    @order_information.total_amount = 800+@total
+    @order_information.save
+    redirect_to public_order_information_complete_path(@order_information)
   end
 
   def show
   end
 
-  def index
+  def confirm
+    @order_information = OrderInformation.new(order_information_params)
+    @cart_items = CartItem.all
+    @customer = current_customer
+
+    # 支払方法
+    if params[:payment_method] = OrderInformation.payment_methods.key(0)
+      @order_information_payment_method = params[:peyment_method].to_i
+    elsif params[:payment_method] = OrderInformation.payment_methods.key(1)
+      @order_information_payment_method = params[:peyment_method].to_i
+    end
+
+    # 住所
+    if params[:order_information][:select_address] == "1"
+		  @order_information.postal_code = @customer.postal_code
+			@order_information.address = @customer.address
+			@order_information.name = @customer.last_name + @customer.first_name
+    elsif params[:order_information][:select_address] == "2"
+      @addresses = Address.all
+      @order_information.postal_code = @address.postal_code
+			@order_information.address = @address.address
+			@order_information.name = @address.name
+		elsif params[:order_information][:select_address] == "3"
+			@order_information.postal_code= params[:postal_code]
+			@order_information.address= params[:address]
+			@order_information.name = params[:name]
+		end
+    @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
+    @total_price = 800+@total
   end
+
+  def complete
+  end
+
+  def index
+    @order_informations = OrderInformation.all
+  end
+
+  private
+  def order_information_params
+    params.require(:order_information).permit(:customer_id, :name, :postal_code, :address, :payment_method)
+  end
+
+  def address_params
+    params.require(:address).permit(:customer_id, :name, :postal_code, :address)
+  end
+
 end

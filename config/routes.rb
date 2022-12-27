@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
   namespace :public do
-    resources :customers, only: [:show, :edit, :update]
-    get '/customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
-    patch '/customers/:id/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
-    resources :order_informations, only: [:new, :show, :index, :create, :confirm]
+    resources :customers, only: [:show, :edit, :update] do
+      get '/customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+      patch '/customers/:id/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
+    end
+    resources :order_informations, only: [:new, :show, :index, :create] do
+      post '/confirm' => 'order_informations#confirm', as: 'confirm'
+      get '/complete' => 'order_informations#complete', as: 'complete'
+    end
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
     resources :items, only: [:index, :show]
