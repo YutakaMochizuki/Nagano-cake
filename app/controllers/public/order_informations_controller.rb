@@ -13,10 +13,26 @@ class Public::OrderInformationsController < ApplicationController
     @order_information.postage = 800
     @order_information.total_amount = 800+@total
     @order_information.save
+
+  # order_detailへの保存
+    @cart_items.each do |cart_item|
+			@order_detail = OrderDetail.new
+			@order_detail.order_information_id = @order_information.id
+			@order_detail.item_id = cart_item.item.id
+			@order_detail.amount = cart_item.amount
+			@order_detail.production_status = 0
+			@order_detail.price_including_tax = (cart_item.item.price * 1.1).floor
+			@order_detail.save
+		end
+
+    CartItem.destroy_all
     redirect_to public_order_information_complete_path(@order_information)
   end
 
   def show
+    @order_information = OrderInformation.find(params[:id])
+    @order_details = OrderDetail.all
+    @total =  @order_information.total_amount - @order_information.postage
   end
 
   def confirm
@@ -64,6 +80,10 @@ class Public::OrderInformationsController < ApplicationController
 
   def address_params
     params.require(:address).permit(:customer_id, :name, :postal_code, :address)
+  end
+
+  def order_detail_params
+    params.require(:order_detail).permit(:item_id, :amount, :production_status, :price_including_tax)
   end
 
 end

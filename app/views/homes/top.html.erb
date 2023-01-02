@@ -1,20 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <p>ようこそ、ながのCAKEへ！</p>
-      <p>このサイトは、ケーキ販売のECサイトになります。</p>
-      <p>会員でない方も商品の閲覧はできますが、</p>
-      <p>購入には会員登録が必要になります。</p>
+    <div class="col-md-3">
+      <h4>ジャンル検索</h4>
     </div>
-    <div>
-      <h1>新着商品</h1>
-    </div>
-    <div>
-      <% @items.each do |item| %>
-        <%= image_tag item.get_image %>
-        <%= item.name %>
-        ¥<%= item.price %>
-      <% end %>
+    <div class="col-md-9">
+      <div>
+        <p>ようこそ、ながのCAKEへ！</p>
+        <p>このサイトは、ケーキ販売のECサイトになります。</p>
+        <p>会員でない方も商品の閲覧はできますが、</p>
+        <p>購入には会員登録が必要になります。</p>
+      </div>
+      <div>
+        <h1>新着商品</h1>
+        <div class="row">
+          <% @items.each do |item| %>
+            <%= image_tag item.get_image %><br>
+            <%= item.name %><br>
+            ¥<%= item.price %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

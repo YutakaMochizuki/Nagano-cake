@@ -15,7 +15,11 @@
       <tr>
         <td><%= order_information.created_at.strftime('%Y/%m/%d') %></td>
         <td><%= order_information.postal_code %><%= order_information.address %><%= order_information.name %></td>
-        <td></td>
+         <td>
+          <% order_information.order_details.each do |order_detail| %>
+            <%= order_detail.item.name %>
+          <% end %>
+        </td>
         <td><%= order_information.total_amount.to_s(:delimited, delimiter: ',') %></td>
         <td><%= order_information.order_status %></td>
         <td><%= link_to "表示する", public_order_information_path(order_information) %></td>

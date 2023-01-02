@@ -1,9 +1,17 @@
-<h1>商品一覧</h1>
-<h4>（全x件）</h4>
-<% @items.each do |item| %>
-  <%= link_to image_tag item.get_image %>
-  <%= link_to item.name, public_item_path(item) %>
-  ¥<%= item.price %>
-<% end %>
-
-<%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+<div class="container">
+  <div class="col-lg-3">
+    <div class="row">
+      <h2>商品一覧</h2>
+      <h6>（全X件）</h6>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div>
+      <% @items.each do |item| %>
+        <%= link_to image_tag item.get_image %>
+        <%= link_to item.name, public_item_path(item) %>
+        ¥<%= item.price %>
+      <% end %>
+    </div>
+  </div>
+</div>

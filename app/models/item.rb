@@ -3,6 +3,10 @@ class Item < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   belongs_to :genre
 
+	validates :introduction, presence: true
+	validates :price, 		  presence: true
+	validates :is_active, presence: true
+
   def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -15,7 +19,6 @@ class Item < ApplicationRecord
     (price * 1.1).floor
   end
 
-  belongs_to :genre
   enum is_active: { "販売中":true, "販売停止中":false}
 
 end
