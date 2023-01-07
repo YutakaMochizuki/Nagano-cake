@@ -11,13 +11,13 @@ Rails.application.routes.draw do
     end
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       delete 'cart_items' => 'cart_items#destroy_all', as: 'destroy_all'
-    end  
+    end
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
     resources :items, only: [:index, :show]
   end
 
   namespace :admin do
-    resources :order_details, only: [:show, :update, :index]
+    resources :order_details, only: [:show, :edit, :update, :index]
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:show, :edit, :update, :index]
     resources :items, only: [:index, :new, :create, :show, :edit, :update]

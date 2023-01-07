@@ -1,22 +1,36 @@
 class Public::AddressesController < ApplicationController
   def index
-    @addresses = Address.all
     @address = Address.new
-    @address.customer_id = current_customer.id
-    @address_new = Address.new
+    @addresses = current_customer.addresses
   end
 
   def create
     @address = Address.new(address_params)
     @address.customer_id = current_customer.id
-    @address.save
-    redirect_to public_addresses_path
+    if @address.save
+      redirect_to public_addresses_path
+      flash[:success] = "登録しました。"
+    else
+      @address = Address.new
+      @addresses = current_customer.addresses
+      render 'index'
+    end
   end
 
   def edit
+    @address = Address.find(params[:id])
+  end
+
+  def update
+    @address = Address.find(params[:id])
+    @address.update(address_params)
+    redirect_to public_addresses_path
   end
 
   def destroy
+    @address = Address.find(params[:id])
+    @address.destroy
+    redirect_to public_addresses_path
   end
 
   private

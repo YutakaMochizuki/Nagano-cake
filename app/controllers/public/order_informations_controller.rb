@@ -48,16 +48,16 @@ class Public::OrderInformationsController < ApplicationController
     end
 
     # 住所
-    if params[:order_information][:select_address] == "1"
+    if params[:order_information][:select_address] == '1'
 		  @order_information.postal_code = @customer.postal_code
 			@order_information.address = @customer.address
 			@order_information.name = @customer.last_name + @customer.first_name
-    elsif params[:order_information][:select_address] == "2"
+    elsif params[:order_information][:select_address] == '2'
       @addresses = Address.all
       @order_information.postal_code = @address.postal_code
 			@order_information.address = @address.address
 			@order_information.name = @address.name
-		elsif params[:order_information][:select_address] == "3"
+		elsif params[:order_information][:select_address] == '3'
 			@order_information.postal_code= params[:postal_code]
 			@order_information.address= params[:address]
 			@order_information.name = params[:name]
@@ -70,7 +70,8 @@ class Public::OrderInformationsController < ApplicationController
   end
 
   def index
-    @order_informations = OrderInformation.all
+    # @order_informations = OrderInformation.all
+    @order_informations = current_customer.order_informations
   end
 
   private
