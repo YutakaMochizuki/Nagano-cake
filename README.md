@@ -1,24 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+このサイトは、”ながのCAKE”にある商品を全国発送対応させるために製作したWebページ（ECサイト）になります.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+管理人（admin）ページでは、「ジャンル登録」、「商品登録」、「商品管理」、「顧客情報管理」を行うことができます。
+顧客（public）ページでは、「顧客情報登録」、「配送先登録」、「商品の購入」ができます。

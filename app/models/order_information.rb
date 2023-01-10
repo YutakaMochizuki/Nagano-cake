@@ -9,12 +9,12 @@ class OrderInformation < ApplicationRecord
     item.with_tax_price * amount
   end
 
-  after_update do
-    if self.order_status == 1
-      self.order_details.each {|order_detail|
-      order_detail.update(item_status: 2)
-      }
-    end
-  end
+  # after_update do
+  #   if self.order_status == 1
+  #     self.order_details.each {|order_detail|
+  #     order_detail.update(production_status: 2)
+  #     }
+  #   end
+  # end
 
 end

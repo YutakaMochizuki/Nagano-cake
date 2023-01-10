@@ -1,7 +1,7 @@
 class Public::ItemsController < ApplicationController
    before_action :setup_cart_item!, only: [:add_item, :update_item, :delete_item]
   def index
-    @items = Item.all
+    @items = Item.all.page(params[:page]).per(3)
   end
 
   def show

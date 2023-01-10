@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-4">
+      <%= flash[:inform] %>
       <h4>注文履歴詳細</h4>
     </div>
   </div>
@@ -8,7 +9,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
       <table>
         <tbody>
           <tr>
@@ -29,16 +30,16 @@
           </tr>
           <tr>
             <td>支払方法</td>
-            <td><%= @order_detail.order_information.payment_method %></td>
+            <td><%= @order_detail.order_information.payment_method_i18n %></td>
           </tr>
           <tr>
             <td>注文ステータス</td>
-            <td><%= @order_detail.order_information.order_status %></td>
-            <td>
-              <%= form_with model: @order_detail, url: admin_order_detail_path(@order_detail), method: :patch do |f| %>
+            <%= form_with model: @order_information, url: public_order_information_path(@order_information), method: :patch do |f| %>
+              <td><%= f.select :order_status, OrderInformation.order_statuses.keys.to_a %></td>
+              <td>
                 <%= f.submit "更新", class: "btn btn-success" %>
-              <% end %>
-            </td>
+              </td>
+            <% end %>
           </tr>
         </tbody>
       </table>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get '/customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
       patch '/customers/:id/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
     end
-    resources :order_informations, only: [:new, :show, :index, :create] do
+    resources :order_informations, only: [:new, :show, :index, :create, :update] do
       post '/confirm' => 'order_informations#confirm', as: 'confirm'
       get '/complete' => 'order_informations#complete', as: 'complete'
     end

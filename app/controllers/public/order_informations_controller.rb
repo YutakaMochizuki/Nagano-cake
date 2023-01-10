@@ -1,7 +1,7 @@
 class Public::OrderInformationsController < ApplicationController
   def new
     @order_information = OrderInformation.new
-    @addresses = Address.all
+    @addresses = current_customer.addresses.all
     @current_customer = current_customer
   end
 
@@ -48,19 +48,22 @@ class Public::OrderInformationsController < ApplicationController
     end
 
     # 住所
+    # 自身の住所を選択した場合
     if params[:order_information][:select_address] == '1'
 		  @order_information.postal_code = @customer.postal_code
 			@order_information.address = @customer.address
 			@order_information.name = @customer.last_name + @customer.first_name
+    # 登録済住所から選択した場合
     elsif params[:order_information][:select_address] == '2'
-      @addresses = Address.all
+      @address = Address.find(params[:order_information][:address_id])
       @order_information.postal_code = @address.postal_code
 			@order_information.address = @address.address
 			@order_information.name = @address.name
+    # 新しいお届け先を選択した場合
 		elsif params[:order_information][:select_address] == '3'
-			@order_information.postal_code= params[:postal_code]
-			@order_information.address= params[:address]
-			@order_information.name = params[:name]
+			@order_information.postal_code= params[:order_information][:postal_code]
+			@order_information.address= params[:order_information][:address]
+			@order_information.name = params[:order_information][:name]
 		end
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
     @total_price = 800+@total
@@ -74,9 +77,18 @@ class Public::OrderInformationsController < ApplicationController
     @order_informations = current_customer.order_informations
   end
 
+  def update
+    @order_information = OrderInformation.find(params[:id])
+    if @order_information.update(order_information_params)
+      flash[:inform] = "更新しました"
+    end
+    @order_detail = OrderDetail.find(params[:id])
+    redirect_to admin_order_detail_path(@order_detail.id)
+  end
+
   private
   def order_information_params
-    params.require(:order_information).permit(:customer_id, :name, :postal_code, :address, :payment_method)
+    params.require(:order_information).permit(:customer_id, :name, :postal_code, :address, :payment_method, :order_status)
   end
 
   def address_params

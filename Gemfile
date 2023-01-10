@@ -58,3 +58,4 @@ gem 'devise'
 gem "mini_magick"
 gem "enum_help"
 gem 'pry-rails'
+gem 'kaminari'
