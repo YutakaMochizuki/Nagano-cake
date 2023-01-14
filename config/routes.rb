@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:show, :edit, :update, :index]
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :order_informations, only: [:index, :show, :update]
   end
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {

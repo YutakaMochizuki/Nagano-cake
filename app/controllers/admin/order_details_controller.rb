@@ -1,6 +1,7 @@
 class Admin::OrderDetailsController < ApplicationController
   def index
     @order_details = OrderDetail.all
+    @order_informations = OrderInformation.all
     @customers = Customer.all
     @items = Item.all
   end
@@ -17,16 +18,15 @@ class Admin::OrderDetailsController < ApplicationController
 
   def update
     @order_detail = OrderDetail.find(params[:id])
-    @order_information = OrderInformation.find(params[:id])
     if @order_detail.update(order_detail_params)
-      flash[:inform] = "更新しました"
+      flash[:inform] = "製作ステータスを更新しました"
     end
-    redirect_to admin_order_detail_path(@order_detail.id)
+    redirect_to admin_order_information_path(@order_detail.order_information.id)
   end
 
   private
   def order_detail_params
-    params.require(:order_detail).permit(:production_status, :order_status)
+    params.require(:order_detail).permit(:production_status)
   end
 
 end

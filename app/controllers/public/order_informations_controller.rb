@@ -15,7 +15,7 @@ class Public::OrderInformationsController < ApplicationController
     @order_information.save
 
   # order_detailへの保存
-    @cart_items.each do |cart_item|
+    current_customer.cart_items.each do |cart_item|
 			@order_detail = OrderDetail.new
 			@order_detail.order_information_id = @order_information.id
 			@order_detail.item_id = cart_item.item.id
@@ -79,11 +79,12 @@ class Public::OrderInformationsController < ApplicationController
 
   def update
     @order_information = OrderInformation.find(params[:id])
+    @order_details = @order_information.order_details
     if @order_information.update(order_information_params)
-      flash[:inform] = "更新しました"
+      flash[:inform] = "注文ステータスを更新しました"
     end
     @order_detail = OrderDetail.find(params[:id])
-    redirect_to admin_order_detail_path(@order_detail.id)
+    redirect_to admin_order_information_path(@order_information)
   end
 
   private

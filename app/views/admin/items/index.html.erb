@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-lg-6">
       <h2>商品一覧</h2>
+      <%= link_to "商品新規登録", new_admin_item_path, class: "btn btn-primary" %>
     </div>
   </div>
 </div>
@@ -9,7 +10,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8">
-      <table class="table table-bordered">
+      <table class="table table-bordered mt-3">
         <thead>
           <tr>
             <th>商品ID</th>

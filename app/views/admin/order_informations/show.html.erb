@@ -14,23 +14,23 @@
         <tbody>
           <tr>
             <td>購入者</td>
-            <td><%= @order_detail.order_information.customer.last_name %><%= @order_detail.order_information.customer.first_name %></td>
+            <td><%= @order_information.customer.last_name %><%= @order_information.customer.first_name %></td>
           </tr>
           <tr>
             <td>注文日</td>
-            <td><%= @order_detail.order_information.created_at.strftime('%Y/%m/%d') %></td>
+            <td><%= @order_information.created_at.strftime('%Y/%m/%d') %></td>
           </tr>
           <tr>
             <td>配送先</td>
-            <td><%= @order_detail.order_information.address %></td>
+            <td><%= @order_information.address %></td>
           </tr>
           <tr>
             <td></td>
-            <td><%= @order_detail.order_information.name %></td>
+            <td><%= @order_information.name %></td>
           </tr>
           <tr>
             <td>支払方法</td>
-            <td><%= @order_detail.order_information.payment_method_i18n %></td>
+            <td><%= @order_information.payment_method_i18n %></td>
           </tr>
           <tr>
             <td>注文ステータス</td>
@@ -63,11 +63,11 @@
         <tbody>
           <% @order_details.each do |order_detail| %>
             <tr>
-              <td><%= @order_detail.item.name %></td>
-              <td><%= @order_detail.price_including_tax %></td>
-              <td><%= @order_detail.amount %></td>
-              <td><%= (@order_detail.price_including_tax)*(@order_detail.amount) %></td>
-              <%= form_with model: @order_detail, url: admin_order_detail_path(@order_detail), method: :patch do |f| %>
+              <td><%= order_detail.item.name %></td>
+              <td><%= order_detail.price_including_tax %></td>
+              <td><%= order_detail.amount %></td>
+              <td><%= (order_detail.price_including_tax)*(order_detail.amount) %></td>
+              <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch do |f| %>
                 <td><%= f.select :production_status, OrderDetail.production_statuses.keys.to_a %></td>
                 <td><%= f.submit "更新", class: "btn btn-success" %></td>
               <% end %>
