@@ -21,6 +21,7 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @customer.update(is_deleted: true)
     reset_session
+    flash[:draw_message] = "退会しました"
     redirect_to root_path
   end
 

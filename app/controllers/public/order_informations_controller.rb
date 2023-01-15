@@ -79,8 +79,10 @@ class Public::OrderInformationsController < ApplicationController
 
   def update
     @order_information = OrderInformation.find(params[:id])
-    @order_details = @order_information.order_details
+    @order_details = OrderDetail.where(order_information_id: params[:id])
     if @order_information.update(order_information_params)
+      @order_details.update_all(production_status: 2) if @order_information.order_status == "製作中"
+      @order_details.update_all(production_status: 3) if @order_information.order_status == "発送準備中"
       flash[:inform] = "注文ステータスを更新しました"
     end
     @order_detail = OrderDetail.find(params[:id])
